@@ -17,14 +17,14 @@ app.use(express.json());
 
 const routers = require('./routers/index');
 
-// mongoose.connect(url).then((result) => {
-app.listen(port);
-console.log("DB started and server hosted on port " + port);
-console.log("http://localhost:9000/");
-// }).catch((err) => {
-//     console.log('ERROR');
-//     console.log(err);
-// });
+mongoose.connect(process.env.DB).then((result) => {
+    app.listen(port);
+    console.log("DB started and server hosted on port " + port);
+    console.log("http://localhost:9000/");
+}).catch((err) => {
+    console.log('ERROR');
+    console.log(err);
+});
 
 app.use('/', routers)
 
