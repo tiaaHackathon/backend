@@ -13,7 +13,7 @@ const requireAuth = (req, res, next) => {
         jwt.verify(token, process.env.SECRET_KEY, (err, decodedToken) => {
             if (err) {
                 console.log(err.message);
-                res.redirect('/login');
+                res.redirect('/signin');
             }
             else {
                 console.log(decodedToken);
@@ -22,7 +22,7 @@ const requireAuth = (req, res, next) => {
         })
     }
     else {
-        res.redirect('/login');
+        res.redirect('/signin');
     }
 };
 
