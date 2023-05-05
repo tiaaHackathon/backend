@@ -26,7 +26,7 @@ mongoose.connect(process.env.DB).then((result) => {
     console.log(err);
 });
 
-app.use(loginRoutes);
+app.use(routers);
 
 
 app.get('*', (req, res) => {
