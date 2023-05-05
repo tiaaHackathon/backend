@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const { compareSync } = require("bcrypt");
 
 dotenv.config({ path: __dirname + "/../config.env" })
-
+const loginRoutes = require('../src/routers/user/user-router');
 const app = express();
 
 const port = process.env.PORT;
@@ -26,7 +26,7 @@ mongoose.connect(process.env.DB).then((result) => {
     console.log(err);
 });
 
-app.use('/', routers)
+app.use(loginRoutes);
 
 
 app.get('*', (req, res) => {

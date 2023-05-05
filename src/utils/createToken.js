@@ -1,9 +1,55 @@
-const jwt = module.require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config({
+    path: '/../config.env'
+});
+const User = require('../models/user-model.js');
 
-const maxAge = 30 * 24 * 60 * 60;
+const requireAuth = (req, res, next) => {
 
-module.exports.createToken = (id) => {
-    return jwt.sign({ id }, process.env.SECRET_KEY, {
-        expiresIn: maxAge,
-    });
+    const token = req.cookies.jwt;
+    //check if json web token exists and is verified
+    if (token) {
+        jwt.verify(token, process.env.SECRET_KEY, (err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+                res.redirect('/login');
+            }
+            else {
+                console.log(decodedToken);
+                next();
+            }
+        })
+    }
+    else {
+        res.redirect('/login');
+    }
 };
+
+
+//check current user
+
+const checkUser = (req, res, next) => {
+    const token = req.cookies.jwt;
+    if (token) {
+        jwt.verify(token, 'nodejsapp', async (err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+                res.locals.user = null;
+                next();
+            }
+            else {
+                console.log(decodedToken);
+                let user = await User.findById(decodedToken.id);
+                res.locals.user = user;
+                next();
+            }
+        })
+    }
+    else {
+        res.locals.user = null;
+        next();
+    }
+}
+
+module.exports = { requireAuth, checkUser };
