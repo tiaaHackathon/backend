@@ -10,4 +10,6 @@ adminRouter.get('/', async (req, res) => {
 
 adminRouter.post('/addmovie', controllers.admin_add_movie);
 
+// adminRouter.get('/populate', controllers.populateTheDB);
+
 module.exports = adminRouter;

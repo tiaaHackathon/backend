@@ -2,6 +2,10 @@ const Movie = require('../models/movie-model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
+
+const axios = require('axios')
+
+
 dotenv.config({
     path: '/../config.env'
 });
@@ -24,28 +28,43 @@ const handleErrors = (err) => {
 }
 
 module.exports.admin_add_movie = async (req, res) => {
-    const { adult, backgroundPosterURL, genre, originalLanguage, originalTitle, overview, popularity, posterURL, releaseDate, video, voteAverage, videoCount } = req.body;
+    const { adult: adult,
+        backdrop_path,
+        genre,
+        genre_ids,
+        keywords,
+        original_language,
+        original_title,
+        overview,
+        popularity,
+        poster_path,
+        release_date,
+        video,
+        vote_average,
+        video_count } = req.body;
     try {
         if (popularity < 0) {
             throw Error("Rating can't be negative");
         }
-        if (releaseDate > new Date().getDate()) {
+        if (release_date > new Date().getDate()) {
             throw Error("Date must be older than today");
         }
         const movie =
             await Movie.create({
                 adult: adult,
-                backgroundPosterURL: backgroundPosterURL,
+                backdrop_path: backdrop_path,
                 genre: genre,
-                originalLanguage: originalLanguage,
-                originalTitle: originalTitle,
+                genre_ids: genre_ids,
+                keywords: keywords,
+                original_language: original_language,
+                original_title: original_title,
                 overview: overview,
                 popularity: popularity,
-                posterURL: posterURL,
-                releaseDate: releaseDate,
+                poster_path: poster_path,
+                release_date: release_date,
                 video: video,
-                voteAverage: voteAverage,
-                videoCount: videoCount
+                vote_average: vote_average,
+                video_ount: video_count
             });
         console.log("Movie Inserterd");
         res.status(201).json({ movie: movie._id });
@@ -56,3 +75,4 @@ module.exports.admin_add_movie = async (req, res) => {
     }
 
 };
+

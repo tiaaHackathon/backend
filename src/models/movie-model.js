@@ -2,26 +2,44 @@ const mongoose = require('mongoose');
 
 const movieSchema = new mongoose.Schema(
     {
+
         adult: {
             type: Boolean,
             // required: true
         },
-        backgroundPosterURL: {
+        backdrop_path: {
             type: String,
+            // required: true
+        },
+        cast: {
+            type: [],
+            // required: true
+        },
+        crew: {
+
+            type: [],
             // required: true
         },
         genre: {
             type: [],
             // required: true
         },
-
-        originalLanguage: {
+        genre_ids: {
+            type: [],
+            // required: true
+        },
+        keywords: {
+            type: [],
+            // required: true
+        },
+        original_language: {
             type: String,
             // required: true,
-            unique: true
+            // unique: true
         },
-        originalTitle: {
+        original_title: {
             type: String,
+            unique: true
             // required: true
         },
         overview: {
@@ -31,11 +49,11 @@ const movieSchema = new mongoose.Schema(
         popularity: {
             type: Number
         },
-        posterURL: {
+        poster_path: {
             type: String,
             // required: true
         },
-        releaseDate: {
+        release_date: {
             type: Date,
             // required: true
         },
@@ -47,11 +65,11 @@ const movieSchema = new mongoose.Schema(
             type: Boolean,
             // required: true
         },
-        voteAverage: {
+        vote_average: {
             type: Number,
             // required: true
         },
-        voteCount: {
+        vote_count: {
             type: Number,
             // required: true
         },

@@ -60,3 +60,15 @@ module.exports.get_movie_list_default = async (req, res) => {
     }
 }
 
+
+module.exports.get_movie_info = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        Movie.findById(id).then((result) => {
+            res.status(200).json(result);
+        })
+    } catch (err) {
+
+    }
+}
