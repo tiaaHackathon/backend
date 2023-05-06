@@ -2,54 +2,59 @@ const mongoose = require('mongoose');
 
 const movieSchema = new mongoose.Schema(
     {
-        mname: {
+        adult: {
+            type: Boolean,
+            // required: true
+        },
+        backgroundPosterURL: {
             type: String,
-            required: true,
+            // required: true
+        },
+        genre: {
+            type: [],
+            // required: true
+        },
+
+        originalLanguage: {
+            type: String,
+            // required: true,
             unique: true
         },
-        mimage: {
-            type: String,
-
-        },
-        mcast: {
-            type: [],
-            // required: true
-        },
-        mcrew: {
-            type: [],
-            // required: true
-        },
-        moviegenre: {
-            type: [],
-            required: true
-        },
-        storyline: {
-            type: String,
-            required: true
-        },
-        runningtime: {
-            type: String,
-            required: true
-        },
-        awards: {
-            type: []
-        },
-        budget: {
+        originalTitle: {
             type: String,
             // required: true
         },
-        boxofficecollection: {
+        overview: {
             type: String,
             // required: true
         },
-        releasedate: {
-            type: Date,
-            required: true
-        },
-        rating: {
+        popularity: {
             type: Number
-        }
-
+        },
+        posterURL: {
+            type: String,
+            // required: true
+        },
+        releaseDate: {
+            type: Date,
+            // required: true
+        },
+        title: {
+            type: String,
+            // required: true
+        },
+        video: {
+            type: Boolean,
+            // required: true
+        },
+        voteAverage: {
+            type: Number,
+            // required: true
+        },
+        voteCount: {
+            type: Number,
+            // required: true
+        },
     }
 );
 
