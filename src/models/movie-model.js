@@ -13,11 +13,11 @@ const movieSchema = new mongoose.Schema(
         },
         mcast: {
             type: [],
-            required: true
+            // required: true
         },
         mcrew: {
             type: [],
-            required: true
+            // required: true
         },
         moviegenre: {
             type: [],
@@ -36,11 +36,11 @@ const movieSchema = new mongoose.Schema(
         },
         budget: {
             type: String,
-            required: true
+            // required: true
         },
         boxofficecollection: {
             type: String,
-            required: true
+            // required: true
         },
         releasedate: {
             type: Date,
