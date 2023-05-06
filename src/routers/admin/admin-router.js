@@ -5,7 +5,7 @@ const controllers = require('../../controllers/loginControllers');
 
 
 adminRouter.get('/', async (req, res) => {
-    res.send("admins");
+    res.send("admin");
 });
 
 adminRouter.post('/signin,', controllers.signin_post);

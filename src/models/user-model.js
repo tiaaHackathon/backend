@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -30,8 +31,8 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-userSchema.statics.login = async function (username, password) {
-    const user = await this.findOne({ username });
+userSchema.statics.login = async function (email, password) {
+    const user = await this.findOne({ email });
     if (user) {
         const auth = await bcrypt.compare(password, user.password);
         if (auth) {
@@ -39,7 +40,7 @@ userSchema.statics.login = async function (username, password) {
         }
         throw Error('Incorrect Password!!');
     }
-    throw Error('UserName Not Registered!!');
+    throw Error('Email Not Registered!!');
 };
 
 const User = mongoose.model('User', userSchema);

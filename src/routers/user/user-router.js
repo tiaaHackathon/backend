@@ -8,7 +8,7 @@ userRouter.get('/', async (req, res) => {
     res.send("users");
 });
 
-userRouter.post('/signin,', controllers.signin_post);
+userRouter.post('/signin', controllers.signin_post);
 
 userRouter.post('/signup', controllers.signup_post);
 
