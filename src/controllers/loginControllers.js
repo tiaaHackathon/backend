@@ -48,6 +48,8 @@ module.exports.signup_get = (req, res) => {
 }
 
 module.exports.signup_post = async (req, res) => {
+    //username remove
+
     const { name, email, phone, username, password } = req.body;
     try {
         const salt = await bcrypt.genSalt();

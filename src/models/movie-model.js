@@ -4,7 +4,8 @@ const movieSchema = new mongoose.Schema(
     {
         mname: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         mimage: {
             type: String,
