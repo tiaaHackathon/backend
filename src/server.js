@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+var cors = require('cors')
 
 const { compareSync } = require("bcrypt");
 
@@ -13,6 +14,7 @@ const url = process.env.DATABASE;
 const secretKey = process.env.SECRET_KEY;
 
 app.use(express.json());
+app.use(cors());
 
 
 const routers = require('./routers/index');
