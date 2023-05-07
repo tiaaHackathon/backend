@@ -46,10 +46,16 @@ module.exports.get_movie_list_search = async (req, res) => {
         const movies = await Movie.find({
             "original_title": { $regex: query, $options: 'i' }
         });
-        res.status(200).json({ movies: movies });
+        const response = {
+            'status': 200,
+            'message': 'success',
+            'body': movies
+        }
+        console.log(movies);
+        res.status(200).json({ response });
     }
     catch (err) {
-        res.status(404).json("Internal Server Error");
+        res.status(500).json("Internal Server Error");
     }
 };
 

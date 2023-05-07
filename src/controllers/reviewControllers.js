@@ -111,7 +111,7 @@ module.exports.dislikeReview = async (req, res) => {
     try {
         const review = await Review.findById(req.params.rid);
         if (!review) return res.status(404).json({ msg: 'Review not found' });
-        const uid = req.body.uid;
+        const uid = req.params.uid;
         if (review.dislikes.includes(uid)) {
             review.dislikes = review.dislikes.filter(id => id !== uid);
         } else {

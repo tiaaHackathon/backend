@@ -59,7 +59,7 @@ module.exports.signup_post = async (req, res) => {
         const user = await User.create({ name: name, email: email, phone: phone, password: hpassword });
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(201).json({ user: user._id });
+        res.status(200).json({ user: user._id });
     }
     catch (err) {
         const errors = handleErrors(err);
@@ -84,7 +84,7 @@ module.exports.signin_post = async (req, res) => {
     }
 }
 
-module.exports.logout_get = (req, res) => {
+module.exports.logout = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });
     res.redirect('/');
 }
@@ -98,7 +98,7 @@ module.exports.getUser = async (req, res) => {
         res.status(200).json({ user: user });
     }
     catch (err) {
-        const error = handleError(err);
+        const error = handleErrors(err);
         res.status(500).json({ error });
     }
 };
