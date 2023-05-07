@@ -1,14 +1,19 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const loginRoutes = require('../src/routers/user/user-router');
 var cors = require('cors')
 const cookieParser = require('cookie-parser');
-
 const { compareSync } = require("bcrypt");
 
+
+
 dotenv.config({ path: __dirname + "/../config.env" })
-const loginRoutes = require('../src/routers/user/user-router');
+
 const app = express();
+
+
+
 
 const port = process.env.PORT;
 const url = process.env.DATABASE;
@@ -16,6 +21,8 @@ const secretKey = process.env.SECRET_KEY;
 
 app.use(express.json());
 app.use(cors());
+
+
 app.use(cookieParser());
 
 
