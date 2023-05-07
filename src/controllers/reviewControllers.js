@@ -10,14 +10,19 @@ dotenv.config({
 //add a review
 module.exports.addReview = async (req, res, next) => {
     const mid = req.params.mid;
-    const rev = req.body.review;
+    const rev = req.body.review.review;
     console.log(mid, rev);
-    const uid = req.params.uid;
+    //const uid = req.params.uid;
     try {
-        const user = await User.findById({ _id: uid });
+        const token = req.cookies.jwt;
+        console.log(token);
+        let decoded = await jwt.verify(token, 'nodejsapp');
+        console.log(decoded.id);
+        const user = await User.findById(decoded.id);
         const username = user.name;
+        console.log(username);
         const review = await Review.create({
-            uid: uid,
+            uid: user._id,
             username: username,
             mid: mid,
             review: rev

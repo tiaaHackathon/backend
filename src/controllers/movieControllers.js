@@ -62,7 +62,7 @@ module.exports.get_movie_list_search = async (req, res) => {
 module.exports.get_movie_list_default = async (req, res) => {
 
     try {
-        const movies = await Movie.find().sort({ release_date: -1 }).limit(5);
+        const movies = await Movie.find()//.sort({ release_date: -1 }).limit(5);
 
         const response = {
             'status': 200,

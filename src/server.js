@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const loginRoutes = require('../src/routers/user/user-router');
 var cors = require('cors')
@@ -20,11 +21,10 @@ const url = process.env.DATABASE;
 const secretKey = process.env.SECRET_KEY;
 
 app.use(express.json());
-app.use(cors());
-
-
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser());
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const routers = require('./routers/index');
 
