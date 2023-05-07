@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 var cors = require('cors')
+const cookieParser = require('cookie-parser');
 
 const { compareSync } = require("bcrypt");
 
@@ -15,6 +16,7 @@ const secretKey = process.env.SECRET_KEY;
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 
 const routers = require('./routers/index');

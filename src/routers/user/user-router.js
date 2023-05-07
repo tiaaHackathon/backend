@@ -1,6 +1,6 @@
 const express = require('express');
 const userRouter = express.Router();
-
+const { requireAuth, checkUser } = require('../../utils/createToken');
 const controllers = require('../../controllers/loginControllers');
 
 

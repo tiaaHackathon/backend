@@ -14,8 +14,10 @@ const commentSchema = new mongoose.Schema({
         type: String,
         maxLength: 3000
     },
+
     likes: {
         type: []
+
     },
     dislikes: {
         type: []
