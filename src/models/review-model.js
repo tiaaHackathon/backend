@@ -11,14 +11,15 @@ const commentSchema = new mongoose.Schema({
         required: true
     },
     comment: {
-        type: String
+        type: String,
+        maxLength: 3000
     },
     likes: {
-        type: Number,
+        type: [],
         default: 0
     },
     dislikes: {
-        type: Number,
+        type: [],
         default: 0
     }
 });
@@ -39,17 +40,18 @@ const reviewSchema = new mongoose.Schema({
         required: true
     },
     review: {
-        type: String
+        type: String,
+        maxLength: 3000
     },
     comment: {
         type: [commentSchema],
     },
     likes: {
-        type: Number,
+        type: [],
         default: 0
     },
     dislikes: {
-        type: Number,
+        type: [],
         default: 0
     }
 });

@@ -67,7 +67,7 @@ module.exports.admin_add_movie = async (req, res) => {
                 video_ount: video_count
             });
         console.log("Movie Inserterd");
-        res.status(201).json({ movie: movie._id });
+        res.status(201).json({ movie: movie });
     }
     catch (err) {
         const errors = handleErrors(err);

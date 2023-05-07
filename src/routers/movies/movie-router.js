@@ -7,7 +7,7 @@ const controllers = require('../../controllers/movieControllers');
 
 
 movieRouter.get('/default', controllers.get_movie_list_default);
-
+movieRouter.get('/search/:query', controllers.get_movie_list_search);
 movieRouter.get('/getMovie/:id', async (req, res) => {
     const id = req.params.id;
 

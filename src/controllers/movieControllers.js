@@ -2,6 +2,7 @@ const Movie = require('../models/movie-model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
+const { TopologyDescription } = require('mongodb');
 dotenv.config({
     path: '/../config.env'
 });
@@ -39,11 +40,21 @@ const createToken = (id) => {
     });
 }
 
+module.exports.get_movie_list_search = async (req, res) => {
+    const query = req.params.query;
+    try {
+        const movies = await Movie.find({ $regex: query });
+        res.status(200).json(movies);
+    }
+    catch (err) {
+        res.status(404).json("Internal Server Error");
+    }
+};
 
 module.exports.get_movie_list_default = async (req, res) => {
 
     try {
-        const movies = await Movie.find();
+        const movies = await Movie.find().sort({ release_date: -1 }).limit(5);
 
         const response = {
             'status': 200,

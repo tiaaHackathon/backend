@@ -8,7 +8,7 @@ dotenv.config({
 
 const handleErrors = (err) => {
     console.log(err.message, err.code);
-    let errors = { name: '', username: '', email: '', password: '' };
+    let errors = { name: '', username: '', phone: '', email: '', password: '' };
 
     // duplicate error code
     if (err.code === 11000) {
@@ -21,6 +21,11 @@ const handleErrors = (err) => {
             errors[properties.path] = properties.message;
         });
     }
+
+    if (err.message === "Phone must be only 10 digits") {
+        err.phone = "Phone must be only 10 digits";
+    }
+
     //incorrect email
     if (err.message === 'Email Not Registered!!') {
         errors.email = 'Email is Not Registered!!';
@@ -38,20 +43,14 @@ const createToken = (id) => {
         expiresIn: maxAge
     });
 }
-
-module.exports.signin_get = (req, res) => {
-    res.render('signin')
-}
-
-module.exports.signup_get = (req, res) => {
-    res.render('signup');
-}
-
 module.exports.signup_post = async (req, res) => {
     //username remove
 
     const { name, email, phone, username, password } = req.body;
     try {
+        if (phone.length != 10) {
+            throw Error('Phone must be only 10 digits');
+        }
         const salt = await bcrypt.genSalt();
         const hpassword = await bcrypt.hash(password, salt);
         const user = await User.create({ name: name, email: email, phone: phone, username: username, password: hpassword });
