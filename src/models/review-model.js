@@ -15,12 +15,10 @@ const commentSchema = new mongoose.Schema({
         maxLength: 3000
     },
     likes: {
-        type: [],
-        default: 0
+        type: []
     },
     dislikes: {
-        type: [],
-        default: 0
+        type: []
     }
 });
 
@@ -47,12 +45,10 @@ const reviewSchema = new mongoose.Schema({
         type: [commentSchema],
     },
     likes: {
-        type: [],
-        default: 0
+        type: []
     },
     dislikes: {
-        type: [],
-        default: 0
+        type: []
     }
 });
 const Comments = mongoose.model('Comments', commentSchema);

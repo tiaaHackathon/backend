@@ -43,8 +43,10 @@ const createToken = (id) => {
 module.exports.get_movie_list_search = async (req, res) => {
     const query = req.params.query;
     try {
-        const movies = await Movie.find({ $regex: query });
-        res.status(200).json(movies);
+        const movies = await Movie.find({
+            "original_title": { $regex: query, $options: 'i' }
+        });
+        res.status(200).json({ movies: movies });
     }
     catch (err) {
         res.status(404).json("Internal Server Error");

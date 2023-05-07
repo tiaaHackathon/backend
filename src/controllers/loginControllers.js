@@ -46,14 +46,14 @@ const createToken = (id) => {
 module.exports.signup_post = async (req, res) => {
     //username remove
 
-    const { name, email, phone, username, password } = req.body;
+    const { name, email, phone, password } = req.body;
     try {
         if (phone.length != 10) {
             throw Error('Phone must be only 10 digits');
         }
         const salt = await bcrypt.genSalt();
         const hpassword = await bcrypt.hash(password, salt);
-        const user = await User.create({ name: name, email: email, phone: phone, username: username, password: hpassword });
+        const user = await User.create({ name: name, email: email, phone: phone, password: hpassword });
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(201).json({ user: user._id });
