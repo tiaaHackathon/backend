@@ -6,6 +6,10 @@ const commentSchema = new mongoose.Schema({
         ref: 'Users',
         required: true
     },
+    username: {
+        type: String,
+        required: true
+    },
     comment: {
         type: String
     },
@@ -23,6 +27,10 @@ const reviewSchema = new mongoose.Schema({
     uid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
+        required: true
+    },
+    username: {
+        type: String,
         required: true
     },
     mid: {

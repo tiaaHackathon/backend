@@ -1,5 +1,5 @@
 const { Review, Comments } = require('../models/review-model');
-
+const User = require('../models/user-model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
@@ -14,8 +14,11 @@ module.exports.addReview = async (req, res, next) => {
     console.log(mid, rev);
     const uid = req.params.uid;
     try {
+        const user = await User.findById({ _id: uid });
+        const username = user.name;
         const review = await Review.create({
             uid: uid,
+            username: username,
             mid: mid,
             review: rev
         });
@@ -29,11 +32,11 @@ module.exports.addReview = async (req, res, next) => {
 };
 
 module.exports.getReviews = async (req, res) => {
-    const uid = req.params.uid;
+    //    const uid = req.params.uid;
     const mid = req.params.mid;
 
     try {
-        Review.find({ uid: uid, mid: mid }).then((result) => {
+        Review.find({ mid: mid }).then((result) => {
             res.status(200).json(result);
         })
     } catch (err) {
@@ -59,9 +62,11 @@ module.exports.addComment = async (req, res) => {
     const mid = req.params.mid;
     const comments = req.body.comments;
     try {
+        const user = await User.findById({ _id: uid });
         const review = await Review.findOne({ uid: uid, mid: mid });
         const comm = await Comments.create({
             uid: uid,
+            username: user.name,
             comment: comments
         });
         review.comment.push(comm);
