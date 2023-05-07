@@ -34,6 +34,9 @@ const handleErrors = (err) => {
     if (err.message === 'Incorrect Password!!') {
         errors.password = 'Incorrect Password!!';
     }
+    if (err.message === 'User not found') {
+        errors.name = 'User not found';
+    }
     return errors;
 }
 
@@ -85,3 +88,17 @@ module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });
     res.redirect('/');
 }
+module.exports.getUser = async (req, res) => {
+    const uid = req.params.uid;
+    try {
+        const user = await User.findById(uid);
+        if (!user) {
+            throw Error("User not found");
+        }
+        res.status(200).json({ user: user });
+    }
+    catch (err) {
+        const error = handleError(err);
+        res.status(500).json({ error });
+    }
+};
