@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require('../../swagger_output.json');
 
 const userRouter = require('./user/user-router');
 const adminRouter = require('./user/admin-router');
@@ -10,5 +12,7 @@ router.use('/users', userRouter);
 router.use('/admin', adminRouter);
 router.use('/movies', movieRouter);
 router.use('/reviews', reviewRouter);
+
+router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 module.exports = router;
