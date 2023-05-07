@@ -75,11 +75,46 @@ module.exports.get_movie_list_default = async (req, res) => {
 module.exports.get_movie_info = async (req, res) => {
     const id = req.params.id;
 
+    // console.log(req.params)
+
+    // console.log("id" + id);
     try {
         Movie.findById(id).then((result) => {
-            res.status(200).json(result);
+            res.status(201).json(result);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+module.exports.query_filter = async (req, res) => {
+    // const popularity = 1;
+    // const release = 0-0;
+    // const id = req.params.id;
+
+    const { genre, releaseLower, releaseUpper } = req.body;
+
+    let { popularity } = req.query;
+
+    if (!popularity) {
+        popularity = -1;
+    }
+
+    const startDate = new Date(releaseLower);
+    const endDate = new Date(releaseUpper);
+
+    try {
+        Movie.find({
+            genre: { $in: genre },
+            release_date: { $gte: startDate, $lt: endDate }
+        }).sort({ popularity: popularity }).then((result) => {
+            res.status(200).json({
+                status: 200,
+                message: 'success',
+                body: result
+            })
         })
     } catch (err) {
-
+        console.log(err);
     }
 }

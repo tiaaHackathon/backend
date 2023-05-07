@@ -7,8 +7,20 @@ const movieSchema = new mongoose.Schema(
             type: Boolean,
             // required: true
         },
+        awards: {
+            type: [],
+            // required: true
+        },
         backdrop_path: {
             type: String,
+            // required: true
+        },
+        box_office: {
+            type: Number,
+            // required: true
+        },
+        budget: {
+            type: Number,
             // required: true
         },
         cast: {
