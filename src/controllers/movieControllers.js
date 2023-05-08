@@ -9,26 +9,9 @@ dotenv.config({
 
 const handleErrors = (err) => {
     console.log(err.message, err.code);
-    let errors = { name: '', username: '', email: '', password: '' };
-
-    // duplicate error code
-    if (err.code === 11000) {
-        errors.email = "UserName already registered";
-    }
-
-    //validation errors
-    if (err.message.includes('user validation failed')) {
-        Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-    //incorrect email
-    if (err.message === 'UserName Not Registered!!') {
-        errors.email = 'UserName is Not Registered!!';
-    }
-    //incorrecct password
-    if (err.message === 'Incorrect Password!!') {
-        errors.password = 'Incorrect Password!!';
+    let errors = { movie: '' };
+    if (err.message === 'No Movie for this Genre') {
+        errors.movie = "No Movie for this Genre";
     }
     return errors;
 }
@@ -67,7 +50,6 @@ module.exports.get_movie_list_default = async (req, res) => {
 
     try {
         const movies = await Movie.find()//.sort({ release_date: -1 }).limit(5);
-
         const response = {
             'status': 200,
             'message': 'success',
@@ -130,3 +112,18 @@ module.exports.query_filter = async (req, res) => {
         console.log(err);
     }
 }
+
+module.exports.get_genre = async (req, res) => {
+    const genre = req.params.genre;
+    try {
+        const movie = await Movie.find({ genre: genre }).sort({ rating: -1 }).limit(5);
+        if (!movie) {
+            throw Error("No Movie for this Genre");
+        }
+        res.status(200).json(movie);
+    }
+    catch (err) {
+        const error = handleErrors(err);
+        res.status(400).json(error);
+    }
+};

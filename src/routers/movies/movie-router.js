@@ -11,5 +11,5 @@ movieRouter.get('/search/:query', controllers.get_movie_list_search);
 movieRouter.get('/getMovie/:id', controllers.get_movie_info);
 
 movieRouter.post('/q', controllers.query_filter);
-
+movieRouter.get('/genre/:genre', controllers.get_genre);
 module.exports = movieRouter;

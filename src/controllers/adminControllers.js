@@ -28,7 +28,7 @@ const handleErrors = (err) => {
 }
 
 module.exports.admin_add_movie = async (req, res) => {
-    const { adult,
+    const {
         awards,
         backdrop_path,
         box_office,
@@ -36,17 +36,13 @@ module.exports.admin_add_movie = async (req, res) => {
         cast,
         crew,
         genre,
-        keywords,
         original_language,
         original_title,
         overview,
         popularity,
         poster_path,
         release_date,
-        title,
-        video,
-        vote_average,
-        video_count } = req.body;
+        title } = req.body;
     try {
         if (popularity < 0) {
             throw Error("Rating can't be negative");

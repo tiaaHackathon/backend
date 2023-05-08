@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 
 const movieSchema = new mongoose.Schema(
     {
-
-        adult: {
-            type: Boolean,
-            // required: true
-        },
         awards: {
             type: [],
             // required: true
@@ -33,14 +28,6 @@ const movieSchema = new mongoose.Schema(
             // required: true
         },
         genre: {
-            type: [],
-            // required: true
-        },
-        genre_ids: {
-            type: [],
-            // required: true
-        },
-        keywords: {
             type: [],
             // required: true
         },
@@ -72,19 +59,8 @@ const movieSchema = new mongoose.Schema(
         title: {
             type: String,
             // required: true
-        },
-        video: {
-            type: Boolean,
-            // required: true
-        },
-        vote_average: {
-            type: Number,
-            // required: true
-        },
-        vote_count: {
-            type: Number,
-            // required: true
-        },
+        }
+
     }
 );
 
