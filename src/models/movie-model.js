@@ -10,12 +10,12 @@ const movieSchema = new mongoose.Schema(
             type: String,
             // required: true
         },
-        box_office: {
+        box_office_collection: {
             type: Number,
             // required: true
         },
         budget: {
-            type: Number,
+            type: String,
             // required: true
         },
         cast: {
@@ -45,7 +45,7 @@ const movieSchema = new mongoose.Schema(
             type: String,
             // required: true
         },
-        popularity: {
+        rating: {
             type: Number
         },
         poster_path: {
