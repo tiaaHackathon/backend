@@ -116,7 +116,8 @@ module.exports.query_filter = async (req, res) => {
 module.exports.get_genre = async (req, res) => {
     const genre = req.params.genre;
     try {
-        const movie = await Movie.find({ genre: genre }).sort({ rating: -1 }).limit(5);
+        const movie = await Movie.find({ genre: genre }).limit(5);
+        //.sort({ rating: -1 })
         if (!movie) {
             throw Error("No Movie for this Genre");
         }
