@@ -31,7 +31,7 @@ const routers = require('./routers/index');
 mongoose.connect(process.env.DB).then((result) => {
     app.listen(port);
     console.log("DB started and server hosted on port " + port);
-    console.log("http://localhost:9000/");
+    console.log(`http://localhost:${port}/`);
 }).catch((err) => {
     console.log('ERROR');
     console.log(err);

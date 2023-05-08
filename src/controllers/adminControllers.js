@@ -51,6 +51,11 @@ module.exports.admin_add_movie = async (req, res) => {
             throw Error("Date must be older than today");
         }
 
+        var castList = cast.split(',');
+        var crewList = crew.split(',');
+
+
+
 
 
         const movie =
@@ -60,8 +65,8 @@ module.exports.admin_add_movie = async (req, res) => {
                 backdrop_path: backdrop_path,
                 box_office: box_office,
                 budget: budget,
-                cast: cast,
-                crew: crew,
+                cast: castList,
+                crew: crewList,
                 genre: genre,
                 keywords: keywords,
                 original_language: original_language,
@@ -80,8 +85,8 @@ module.exports.admin_add_movie = async (req, res) => {
         res.status(201).json({ movie: movie });
     }
     catch (err) {
-        const errors = handleErrors(err);
-        res.status(400).json({ errors });
+        // const errors = handleErrors(err);
+        res.status(400).json({ err });
     }
 
 };
@@ -311,4 +316,73 @@ module.exports.admin_add_movie_bulk = async (req, res) => {
     }
 
 };
+
+module.exports.admin_remove_movie = async (req, res) => {
+
+    const { id } = req.body;
+    try {
+        const movie = await Movie.findById(id);
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }
+        await movie.remove();
+        res.status(200).json({ message: "Movie Removed" });
+    }
+    catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).json({ errors });
+    }
+}
+
+module.exports.admin_update_movie = async (req, res) => {
+    const { id } = req.body;
+    const {
+        adult,
+        awards,
+        backdrop_path,
+        box_office,
+        budget,
+        cast,
+        crew,
+        genre,
+        keywords,
+        original_language,
+        original_title,
+        overview,
+        popularity,
+        poster_path,
+        release_date,
+        title,
+        video,
+        vote_average,
+        vote_count
+    } = req.body;
+
+}
+
+module.exports.photo_editor = async (req, res) => {
+    const array1 = ["https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp/575414138935599.622710480e7b1.jpg"
+    ];
+    const array2 = ["https://m.media-amazon.com/images/M/MV5BMGJjZTk1NTYtM2I4Yi00NjJhLTg5OWEtZDlkZjMzZjMyY2VkXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkUsghyoiNBSReQR2mR5EjUHgBrGB0tKNOcZ45450yeQ&s"
+    ];
+
+    Movie.find().then(async (movies) => {
+        for (var i = 0; i < movies.length; i++) {
+            console.log("====>" + movies[i]._id);
+            const resp1 = await Movie.updateOne({ _id: movies[i]._id }, { backdrop_path: array2[i] });
+            console.log(resp1);
+            const resp2 = await Movie.updateOne({ _id: movies[i]._id }, { poster_path: array1[i] });
+            console.log(resp2);
+            console.log(i);
+        }
+    })
+
+
+
+
+    res.status(200).json({ message: "Movie Updated" });
+
+}
 
