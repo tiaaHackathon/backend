@@ -14,16 +14,16 @@ module.exports.addReview = async (req, res, next) => {
     console.log(mid, rev);
     //const uid = req.params.uid;
     try {
-        const token = req.cookies.jwt;
-        console.log(token);
-        let decoded = await jwt.verify(token, 'nodejsapp');
-        console.log(decoded.id);
-        const user = await User.findById(decoded.id);
-        const username = user.name;
-        console.log(username);
+        // const token = req.cookies.jwt;
+        // console.log(token);
+        // let decoded = await jwt.verify(token, 'nodejsapp');
+        // console.log(decoded.id);
+        // const user = await User.findById(decoded.id);
+        // const username = user.name;
+        // console.log(username);
         const review = await Review.create({
-            uid: user._id,
-            username: username,
+            // uid: user._id,
+            // username: username,
             mid: mid,
             review: rev
         });

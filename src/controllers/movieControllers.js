@@ -44,7 +44,11 @@ module.exports.get_movie_list_search = async (req, res) => {
     const query = req.params.query;
     try {
         const movies = await Movie.find({
+            // $or: [
             "original_title": { $regex: query, $options: 'i' }
+            //{ "cast": { $contains: { $regex: query, $options: 'i' } } },
+            //    { "crew": { $contains: { $regex: query, $options: 'i' } } }
+            //]
         });
         const response = {
             'status': 200,

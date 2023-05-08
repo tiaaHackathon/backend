@@ -27,11 +27,11 @@ const reviewSchema = new mongoose.Schema({
     uid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
-        required: true
+        //required: true
     },
     username: {
         type: String,
-        required: true
+        //required: true
     },
     mid: {
         type: mongoose.Schema.Types.ObjectId,
