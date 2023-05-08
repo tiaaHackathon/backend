@@ -68,7 +68,7 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.signin_post = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, isAdmin } = req.body;
 
     try {
         console.log(email);
